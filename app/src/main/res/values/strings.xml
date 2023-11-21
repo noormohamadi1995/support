@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">support</string>
+    <string name="selected_item">Selected item:</string>
+    <string name="ticket_open">تیکت باز</string>
+    <string name="ticket_close">تیکت بسته</string>
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="resend_code">ارسال مجدد</string>
+    <string name="resend_code_title">ارسال کد فعال‌سازی بعد از %1$s </string>
+    <string name="minutes">دقیقه</string>
+    <string name="second">ثانیه</string>
+    <string name="verify_code_title">برای ورود لطفا رمز عبور یکبار مصرف که به شماره %s ارسال شده را وارد کنید.</string>
+    <string name="edit_phone_number">ویرایش شماره موبایل</string>
+
+</resources>

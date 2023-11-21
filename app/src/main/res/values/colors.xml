@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#157EBD</color>
+    <color name="purple_500">#157EBD</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+
+    <color name="colorPrimary">#2B2B2B</color>
+    <color name="colorPrimaryDark">#161616</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorBg">#FFFFFF</color>
+    <color name="colorText">#000000</color>
+
+    <color name="colorPrimaryByDark">#2B2B2B</color>
+    <color name="colorPrimaryDarkByDark">#161616</color>
+    <color name="colorAccentByDark">#12976F</color>
+    <color name="colorBgByDark">#252525</color>
+    <color name="colorTextByDark">#CCCCCC</color>
+
+
+    <color name="Tile_activity_logon">#fff</color>
+    <color name="colorGreen">#4BA84E</color>
+    <color name="Tile_content">#f40e0e</color>
+
+
+    <color name="gray_card">#C5C5C5</color>
+
+    <color name="gray_default">#808080</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="black_overlay">#66000000</color>
+
+
+</resources>

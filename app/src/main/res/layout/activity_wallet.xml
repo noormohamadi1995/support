@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Panel.ListPrice.WalletUserActivity">
+
+    <TextView
+        android:id="@+id/wallet_inventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="موجودی : "
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:id="@+id/atLeastPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_below="@+id/wallet_inventory"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/Btn_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/atLeastPrice"
+        android:layout_centerHorizontal="true"
+        android:text="برداشت پول"
+        app:cornerRadius="8dp"
+        android:padding="5dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRequests"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/Btn_price"
+        android:layout_centerHorizontal="true"
+        android:text="لیست درخواست ها"
+        app:cornerRadius="8dp"
+        android:padding="5dp" />
+
+</RelativeLayout>

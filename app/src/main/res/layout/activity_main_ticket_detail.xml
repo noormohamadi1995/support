@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linear_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingTop="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/te_online"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:text="در حال بررسی.." />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_ticket_messages"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            app:cardElevation="@null"
+            app:cardCornerRadius="0dp"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/linear_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:id="@+id/btn_ticket_type"
+                    android:layout_width="wrap_content"
+                    app:iconSize="24dp"
+                    android:layout_gravity="center_vertical"
+                    app:icon="@drawable/ticket_svgrepo_com"
+                    android:layout_height="wrap_content" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:id="@+id/btn_upload_image"
+                    android:layout_width="wrap_content"
+                    app:iconSize="24dp"
+                    android:layout_gravity="center_vertical"
+                    app:icon="@drawable/baseline_attach_file_24"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/ET_Comment"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:inputType="textMultiLine"
+                    android:layout_height="wrap_content"
+                    android:hint="پیام تیکت شما" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:id="@+id/btn_addTicket"
+                    android:layout_width="wrap_content"
+                    android:visibility="gone"
+                    app:iconSize="24dp"
+                    android:layout_gravity="center_vertical"
+                    app:icon="@drawable/baseline_send_24"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+
+
+    <com.pnikosis.materialishprogress.ProgressWheel
+        android:id="@+id/progress_wheel"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:matProg_barColor="#5588FF"
+        android:layout_gravity="center"
+        app:matProg_progressIndeterminate="true" />
+</FrameLayout>

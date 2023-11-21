@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:scrollbars="none"
+    android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:wheel="http://schemas.android.com/apk/res-auto"
+        android:background="#e0e0e0"
+        android:orientation="vertical"
+        android:layoutDirection="rtl"
+        tools:context="Panel.ListPrice.ContentPriceActivity">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview1"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="#2E2929"
+
+            app:cardBackgroundColor="#121010">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/Card_price_Ig_price"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    app:cardCornerRadius="8dp">
+
+                    <ImageView
+                        android:id="@+id/Ig_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        tools:src="@mipmap/ic_launcher" />
+                </androidx.cardview.widget.CardView>
+
+
+                <RelativeLayout
+                    android:id="@+id/relative_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="14dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toEndOf="@+id/Card_price_Ig_price">
+
+
+                    <TextView
+                        android:id="@+id/Tv_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:padding="4dp"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="#FAF9F9"
+                        android:textSize="17sp"
+                        tools:text="اشتراک 7 روزه" />
+
+
+                    <View
+                        android:id="@+id/view_price"
+                        android:layout_width="220dp"
+                        android:layout_height="2dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/Tv_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/Tv_name"
+                        android:layout_centerHorizontal="true"
+                        android:padding="4dp"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="#F6F5F5"
+                        android:textSize="17sp"
+                        tools:text="قیمت محصول 100" />
+
+
+                    <TextView
+                        android:id="@+id/Tv_price_off"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/Tv_price"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/round_cornder_red"
+                        android:padding="4dp"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="#121212"
+                        android:textSize="17sp"
+                        android:visibility="gone"
+                        tools:text="قیمت بعد تخفیف"
+                        tools:visibility="visible" />
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/Tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="12dp"
+            android:layout_marginTop="16dp"
+            android:padding="10dp"
+            android:text="Title_content"
+            android:textColor="@color/Tile_content"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/offCodeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tvOffcode"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="4dp"/>
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.Material3.Button.IconButton"
+                android:id="@+id/btnDeleteOffCode"
+                android:layout_width="wrap_content"
+                wheel:icon="@drawable/baseline_close_24"
+                wheel:iconSize="24dp"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/referralCodeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tvReferralCode"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="4dp"/>
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.Material3.Button.IconButton"
+                android:id="@+id/btnDeleteReferralCode"
+                android:layout_width="wrap_content"
+                wheel:icon="@drawable/baseline_close_24"
+                wheel:iconSize="24dp"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEnableOffCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            wheel:cornerRadius="8dp"
+            android:layout_marginTop="16dp"
+            android:padding="10dp"
+            android:text="اعمال کد تخفیف"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEnableReferralCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            wheel:cornerRadius="8dp"
+            android:layout_marginTop="24dp"
+            android:padding="10dp"
+            android:text="اعمال کد معرف"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            wheel:cornerRadius="8dp"
+            android:layout_marginTop="16dp"
+            android:padding="10dp"
+            android:text="خرید اشتراک" />
+
+    </LinearLayout>
+
+</ScrollView>

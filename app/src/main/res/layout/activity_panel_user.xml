@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e0e0e0"
+    android:layoutDirection="rtl"
+    tools:context=".Panel.Panel_user">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/purple_500"
+            tools:targetApi="lollipop">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/Im_back"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:padding="2dp"
+                    android:src="@drawable/ic_baseline_arrow_back" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toEndOf="@+id/Im_back"
+                    android:text="Title_panel"
+                    android:textColor="@color/Tile_activity_logon"
+                    android:textSize="18sp"
+                    tools:ignore="UnknownId" />
+
+                <ImageView
+                    android:id="@+id/Im_exit"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:padding="2dp"
+                    android:src="@drawable/ic_exit_to_app_white_24dp" />
+            </RelativeLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_below="@+id/toolbar">
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="16dp"
+                        android:visibility="gone"
+                        app:cardCornerRadius="16dp">
+
+                        <ImageView
+                            android:id="@+id/Ig_panel"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentEnd="true"
+                            android:scaleType="centerCrop" />
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <RelativeLayout
+                        android:id="@+id/relative_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp">
+
+                        <ImageView
+                            android:id="@+id/img_profile"
+                            android:layout_width="180dp"
+                            android:layout_height="180dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="16sp"
+                            android:scaleType="fitCenter"
+                            android:visibility="gone"
+                            tools:src="@drawable/ic_customer"
+                            tools:visibility="visible" />
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/btn_edit_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/round_cornder_blue_blank"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:src="@drawable/ic_pencil"
+                    android:text="اضافه کردن تصویر" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/liner1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Ig_panel"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="#fff"
+                    app:cardBackgroundColor="#C4C8CD"
+                    app:cardCornerRadius="1dp">
+
+                    <TextView
+                        android:id="@+id/Tv_Name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp"
+                        android:textAlignment="center"
+                        android:textColor="#fff"
+                        android:textSize="20sp"
+                        tools:text="نام شما :  جواد" />
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/liner2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Ig_panel"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="#fff"
+                    app:cardBackgroundColor="#C4C8CD"
+                    app:cardCornerRadius="1dp">
+
+                    <TextView
+                        android:id="@+id/Tv_family"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp"
+                        android:textAlignment="center"
+                        android:textColor="#fff"
+                        android:textSize="20sp"
+                        tools:text="نام شما :  جواد" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/liner8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Ig_panel"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="#fff"
+                    app:cardBackgroundColor="#C4C8CD"
+                    app:cardCornerRadius="1dp">
+
+                    <TextView
+                        android:id="@+id/tv_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp"
+                        android:textAlignment="center"
+                        android:textColor="#fff"
+                        android:textSize="20sp"
+                        tools:text="نام شما :  جواد" />
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/liner3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Ig_panel"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="#fff"
+                    app:cardBackgroundColor="#C4C8CD"
+                    app:cardCornerRadius="1dp">
+
+                    <TextView
+                        android:id="@+id/Tv_information"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="12dp"
+                        android:textAlignment="center"
+                        android:textColor="#fff"
+                        android:textSize="20sp"
+                        tools:text="نام شما :  جواد" />
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardview_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/liner3"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="24dp"
+                    app:cardCornerRadius="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/Btn_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:padding="5dp"
+                            android:textColor="#fff"
+                            android:textSize="20sp" />
+
+                        <LinearLayout
+                            android:id="@+id/linear_account_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/description_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:lineSpacingExtra="14sp"
+                                android:paddingStart="24dp"
+                                android:paddingTop="16dp"
+                                android:paddingEnd="24dp"
+                                android:paddingBottom="4dp"
+                                android:text="سرور اختصاصی"
+                                android:textColor="#1e1e1e"
+                                android:textSize="21sp"
+                                android:textStyle="bold" />
+
+                            <View
+                                android:id="@+id/view_price"
+                                android:background="#28D16E"
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                tools:visibility="visible" />
+
+                            <ImageView
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5sp"
+                                android:scaleType="fitCenter"
+                                app:srcCompat="@drawable/startup" />
+
+                            <TextView
+                                android:id="@+id/account_description"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:lineSpacingExtra="14sp"
+                                android:paddingStart="24dp"
+                                android:paddingTop="16dp"
+                                android:paddingEnd="24dp"
+                                android:paddingBottom="24dp"
+                                android:textColor="#1e1e1e"
+                                android:textSize="17sp"
+                                tools:text="با سلام با سلام وقت بخیر سلام با سلام وقت بخیر سلام با سلام قت بخیر سلام با سلام وقت بخیر سلام با سلام وقت بخیر سلام با سلام وقت بخیر سلام با سلام وقت بخیر سلام با سلام وقت بخیر سلام با سلام وقت بخیر" />
+
+                            <Button
+                                android:id="@+id/Btn_price_back_list"
+                                android:layout_width="140dp"
+                                android:layout_height="50dp"
+                                android:text="شروع کن"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="@drawable/dras"
+                                android:padding="5dp"
+                                android:textColor="#fff"
+                                android:layout_gravity="center"
+                                android:layout_centerHorizontal="true"
+                                android:textSize="20sp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_moref"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cardview_description"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="#fff"
+                    app:cardBackgroundColor="#C4C8CD"
+                    app:cardCornerRadius="1dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/tv_moref_code"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="12dp"
+                            android:layout_weight="1"
+                            android:textAlignment="center"
+                            android:textColor="#fff"
+                            android:textSize="20sp"
+                            tools:text="کد معرف" />
+                        <ImageView
+                            android:id="@+id/btnShare"
+                            android:layout_width="36dp"
+                            android:tint="@color/white"
+                            android:src="@drawable/baseline_share_24"
+                            android:layout_height="match_parent"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/liner4_wallet"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="#3C3434"
+                    app:cardBackgroundColor="#08E65454"
+                    app:cardCornerRadius="16dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <ImageView
+                            android:id="@+id/Tv_ticket"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_centerHorizontal="true"
+                            android:padding="12dp"
+                            android:src="@drawable/wallet"
+                            android:textAlignment="center" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="120dp"
+                            android:padding="12dp"
+                            android:text="کیف پول"
+                            android:textAlignment="center"
+                            android:textColor="#333232"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+
+                    </RelativeLayout>
+
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</FrameLayout>

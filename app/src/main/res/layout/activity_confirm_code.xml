@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/txtTitle"
+                android:layout_width="match_parent"
+                android:layout_marginStart="42dp"
+                android:layout_marginEnd="24dp"
+                android:layout_height="wrap_content"/>
+
+            <com.alimuzaffar.lib.pin.PinEntryEditText
+                android:layout_width="match_parent"
+                android:id="@+id/edtCode"
+                android:layout_marginHorizontal="16dp"
+                app:pinLineColors="?attr/colorPrimaryDark"
+                app:pinLineStrokeSelected="2dp"
+                app:pinLineStroke="1dp"
+                android:maxLength="6"
+                android:digits="1234567890"
+                android:inputType="number"
+                android:layout_marginTop="24dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_marginTop="24dp"
+                android:text="تایید کد"
+                app:cornerRadius="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:id="@+id/timerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/txtTimer"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnResendCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:iconPadding="10dp"
+                android:visibility="gone"
+                android:layout_marginStart="4dp"
+                android:text="@string/resend_code"
+                app:iconTint="@color/purple_200" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEditMobile"
+                style="?attr/materialIconButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:iconPadding="10dp"
+                android:visibility="gone"
+                android:layout_marginStart="4dp"
+                android:textAppearance="?attr/textAppearanceTitleSmall"
+                android:text="@string/edit_phone_number"
+                app:iconTint="?attr/colorPrimary"
+                app:icon="@drawable/ic_edite"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

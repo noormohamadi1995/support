@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:layout_margin="10dp"
+    android:layoutDirection="rtl"
+    app:cardCornerRadius="16dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/ivFrame"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/Im_post"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:padding="16dp"
+                android:src="@drawable/ic_waiting" />
+
+            <ImageView
+                android:id="@+id/online_check"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="16dp"
+                android:layout_gravity="end|bottom" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/Tv_TicketTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/ivFrame"
+            android:lines="2"
+            android:padding="4dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="سلام خسته نباشید(مشکل شما)" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Tv_TicketTitle"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/ivFrame"
+            android:orientation="horizontal"
+            android:textSize="13dp">
+
+            <TextView
+                android:id="@+id/Tv_ticketStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:padding="6dp"
+                android:textColor="@color/black"
+                tools:text="فعال" />
+
+            <TextView
+                android:id="@+id/Tv_ticketNewMessage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:gravity="left"
+                android:padding="3dp"
+                android:paddingLeft="12dp"
+                android:textAlignment="center"
+                android:textColor="#227C38"
+                android:visibility="gone"
+                tools:text="1 پیام جدید"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/View_Seperate"
+            android:layout_width="match_parent"
+            android:layout_height="1.2dp"
+            android:layout_above="@+id/Tv_TicketDate"
+            android:layout_toLeftOf="@+id/ivFrame"
+            android:background="#CFCFCF"/>
+
+        <TextView
+            android:id="@+id/Tv_TicketDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/ivFrame"
+            android:gravity="left"
+            android:layoutDirection="ltr"
+            android:paddingLeft="16dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:textColor="#1e1e1e"
+            android:textDirection="ltr"
+            android:textSize="13sp"
+            tools:text="1401/12/20" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
