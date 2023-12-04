@@ -1,6 +1,7 @@
 package com.example.support.viewpager2
 
 import com.example.support.new_model.VideoInfo
+import kotlinx.coroutines.flow.MutableStateFlow
 
 data class VideoItem(
     val id : Int,
@@ -15,4 +16,6 @@ data class VideoItem(
     val userId : Int,
     val infoLike : Int,
     val infoView : Int,
+    val isFullScreen : MutableStateFlow<Boolean> = MutableStateFlow(false),
+    val type : String? = null
 )

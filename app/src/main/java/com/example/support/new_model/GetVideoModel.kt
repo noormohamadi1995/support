@@ -16,8 +16,8 @@ data class GetVideoModel(
     data class VideosData(
         @SerializedName("id") val id: Int? = null,
         @SerializedName("video_url") val videoURL: String? = null,
-        @SerializedName("videoTitle") val videoTitle: String? = null,
-        @SerializedName("videoDescription") val videoDescription: String? = null,
+        @SerializedName("title") val videoTitle: String? = null,
+        @SerializedName("description") val videoDescription: String? = null,
         @SerializedName("likes") val likes: Int? = null,
         @SerializedName("views") val views: Int? = null,
         @SerializedName("created_at") val createdAt: String? = null,

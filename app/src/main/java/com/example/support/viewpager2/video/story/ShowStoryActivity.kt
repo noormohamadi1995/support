@@ -117,7 +117,6 @@ class ShowStoryActivity : AppCompatActivity(), StoryViewCallBack {
 
                     if (dialog?.isShowing == true)
                         dialog?.dismiss()
-
                 }
 
                 override fun onFailure(call: Call<GetStory>, t: Throwable) {
@@ -125,7 +124,6 @@ class ShowStoryActivity : AppCompatActivity(), StoryViewCallBack {
                     if (dialog?.isShowing == true)
                         dialog?.dismiss()
                 }
-
             })
         }
     }
@@ -154,7 +152,6 @@ class ShowStoryActivity : AppCompatActivity(), StoryViewCallBack {
             override fun onFailure(call: Call<StoryReaction>, t: Throwable) {
                 t.printStackTrace()
             }
-
         })
     }
 

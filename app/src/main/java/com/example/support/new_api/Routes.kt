@@ -102,4 +102,5 @@ interface Routes {
 
     @GET("/appconnection/updateapplication.php")
     fun getUpdateLinks(): Call<List<DataModel>>
+
 }

@@ -1,6 +1,9 @@
 package com.example.support.viewpager2.video.story
 
 import android.util.Log
+import org.apache.commons.io.FilenameUtils
+import java.net.URL
+
 
 object Util {
     fun checkMimeType(url :String) : String {
@@ -21,66 +24,22 @@ object Util {
                 "sr2"
             )
         )
-        val videoFormat = ArrayList(
-            listOf(
-                "webm",
-                "mkv",
-                "flv",
-                "vob",
-                "ogg",
-                "ogv",
-                "drc",
-                "gif",
-                "gifv",
-                "mng",
-                "avi",
-                "TS",
-                "M2TS",
-                "MTS",
-                "mov",
-                "qt",
-                "wmv",
-                "yuv",
-                "rm",
-                "rmvb",
-                "viv",
-                "asf",
-                "amv",
-                "mp4",
-                "m4p",
-                "mpg",
-                "mp2",
-                "mpeg",
-                "mpe",
-                "mpv",
-                "mpg",
-                "mpeg",
-                "m2v",
-                "m4v",
-                "svi",
-                "3gp",
-                "3g2",
-                "mxf",
-                "roq",
-                "nsv",
-                "m4p",
-                "mpg",
-                "mp2",
-                "mpeg",
-                "mpe",
-                "mpv"
-            )
-        )
 
-        val mimeType = url.substring(url.lastIndexOf("."))
-        return if (imageFormat.contains(mimeType.removePrefix(".")))
+        val fileIneed = URL(url)
+
+        val mimeType = FilenameUtils.getExtension(fileIneed.path).ifEmpty {
+             if (url.contains("."))
+                url.substring(url.lastIndexOf("."))
+            else
+                url.substring(url.lastIndexOf(".") + 1)
+        }
+        return if (imageFormat.contains(mimeType))
             "image"
-        else if (videoFormat.contains(mimeType.removePrefix(".")))
+        else
             "video"
-        else ""
     }
 
-    public fun formatNumber(number: Int): String {
+    fun formatNumber(number: Int): String {
         val suffix = charArrayOf(' ', 'K', 'M', 'B', 'T', 'P', 'E')
         var value = number.toDouble()
         var index = 0

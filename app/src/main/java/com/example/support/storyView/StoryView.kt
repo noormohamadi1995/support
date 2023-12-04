@@ -142,10 +142,25 @@ class StoryView(
         passedInContainerView.addView(this)
     }
 
+    private fun showLikeCount(){
+        val item = libSliderViewList[currentlyShownIndex].storyDataModel
+        view.findViewById<TextView>(R.id.txtLikes).text = Util.formatNumber(item.likes)
+
+        if (item.isLike?.not() == true){
+            Glide.with(view.context)
+                .load(ContextCompat.getDrawable(view.context,R.drawable.ic_baseline_favorite_border_24))
+                .into(view.findViewById(R.id.btnLike))
+        }else{
+            Glide.with(view.context)
+                .load(ContextCompat.getDrawable(view.context,R.drawable.ic_baseline_favorite_24))
+                .into(view.findViewById(R.id.btnLike))
+        }
+    }
     private fun changeLikeCount(id: Int) {
         val item = libSliderViewList[currentlyShownIndex].storyDataModel
         if (item.id == id) {
             storyCallback.setReaction(id, "like", this)
+
             val txtLike = view.findViewById<TextView>(R.id.txtLikes)
             val btnLike = view.findViewById<ImageView>(R.id.btnLike)
 
@@ -167,24 +182,24 @@ class StoryView(
 
     }
 
-    private fun changeViewCount(id: Int) {
+    private fun changeViewCount() {
         val item = libSliderViewList[currentlyShownIndex].storyDataModel
         val txtCount = view.findViewById<TextView>(R.id.txtViews)
-        if (item.id == id) {
-            if(item.isView?.not() == true){
-                item.viewsCount = item.viewsCount + 1
-                item.isView = true
-                txtCount.text = Util.formatNumber(item.viewsCount)
-                storyCallback.setReaction(item.id, "view", this)
-            }
+        if (item.isView?.not() == true) {
+            item.viewsCount = item.viewsCount + 1
+            item.isView = true
+            txtCount.text = Util.formatNumber(item.viewsCount)
+            storyCallback.setReaction(item.id, "view", this)
+        }else{
+            txtCount.text = Util.formatNumber(item.viewsCount)
         }
     }
 
     @OptIn(ExperimentalStdlibApi::class)
     fun show() {
         val item = libSliderViewList[currentlyShownIndex].storyDataModel
-        view.findViewById<TextView>(R.id.txtLikes).text = Util.formatNumber(item.likes)
-        view.findViewById<TextView>(R.id.txtViews).text = Util.formatNumber(item.viewsCount)
+        showLikeCount()
+        changeViewCount()
 
         Log.e("story id like view", item.id.toString() + " "
                 + item.likes + " " + item.viewsCount + " " + item.isLike + " " + item.isView
@@ -193,16 +208,6 @@ class StoryView(
         if (item.web.isNotEmpty()) {
             view.findViewById<Button>(R.id.btnShowMore).visibility = View.VISIBLE
         } else view.findViewById<Button>(R.id.btnShowMore).visibility = View.GONE
-
-        item.let {
-            view.findViewById<ImageView>(R.id.btnLike).setImageDrawable(
-                ContextCompat.getDrawable(
-                    view.context,
-                    if (it.isLike == true) R.drawable.ic_baseline_favorite_24
-                    else R.drawable.ic_baseline_favorite_border_24
-                )
-            )
-        }
 
         view.findViewById<ProgressBar>(R.id.loaderProgressbar).visibility = View.GONE
         if (currentlyShownIndex != 0) {
@@ -225,7 +230,6 @@ class StoryView(
 
         pause(true)
         val url = item.url
-        changeViewCount(item.id)
         if (currentView is ImageView) {
             view.findViewById<ImageView>(R.id.ivImage).visibility = View.VISIBLE
             view.findViewById<VideoView>(R.id.videoView).visibility = View.GONE
@@ -277,8 +281,9 @@ class StoryView(
         }
 
         view.findViewById<ImageView>(R.id.btnLike).setOnClickListener {
-            //changeLikeCount(item.id)
-            storyCallback.setReaction(item.id, "like", this)
+            Log.e("id", item.id.toString())
+            changeLikeCount(item.id)
+            //storyCallback.setReaction(item.id, "like", this)
         }
 
         view.findViewById<Button>(R.id.btnShowMore).setOnClickListener {

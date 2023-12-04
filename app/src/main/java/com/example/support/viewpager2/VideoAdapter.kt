@@ -2,6 +2,7 @@ package com.example.support.viewpager2
 
 import CircleCropWithBorder
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -9,7 +10,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.content.ContextCompat
+import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.GlideException
@@ -18,12 +26,19 @@ import com.bumptech.glide.request.RequestListener
 import com.example.support.R
 import com.example.support.databinding.VideoContainerBinding
 import com.example.support.viewpager2.video.story.Util
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 
 class VideoAdapter(
     private val onRate : (id : Int,type : String) -> Unit,
-    private val onShare : (title : String,desc : String,url : String) -> Unit
-) : androidx.recyclerview.widget.ListAdapter<VideoItem,VideoAdapter.VideoViewHolder>(
+    private val onShare : (title : String,desc : String,url : String) -> Unit,
+    private val videoPreparedListener: OnMediaPlayerPreparedListener,
+    private val fullScreen : (Boolean) -> Unit
+) : ListAdapter<VideoItem, VideoAdapter.VideoViewHolder>(
     object : DiffUtil.ItemCallback<VideoItem>(){
         override fun areItemsTheSame(oldItem: VideoItem, newItem: VideoItem) = oldItem == newItem
 
@@ -45,31 +60,48 @@ class VideoAdapter(
         holder.bind(getItem(position))
     }
 
+    override fun onViewAttachedToWindow(holder: VideoViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        holder.onAttach()
+    }
+
+    override fun onViewDetachedFromWindow(holder: VideoViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        holder.onDetach()
+    }
+
     inner class VideoViewHolder(val binding : VideoContainerBinding) : RecyclerView.ViewHolder(binding.root) {
-        var hashMapLike: HashMap<Int, Boolean> = HashMap()
-        var profile = ""
+        private var hashMapLike: HashMap<Int, Boolean> = HashMap()
+        private var exoPlayer: ExoPlayer? = null
+        private var mVideo : VideoItem? = null
+        private var fullScreenBtn: ImageView? = null
+        private var job: Job? = null
+        private var profile = ""
         init {
             val sharedPreferences = itemView.context.getSharedPreferences("Shtoken", 0)
             profile = sharedPreferences.getString("profile", "")!!
         }
 
-        private fun detectMediaType(url: String): String {
-            return when (url.substringAfterLast(".", "")) {
-                in listOf("mp4", "avi", "mov", "mkv", "wmv") -> {
-                    "video"
-                }
-                in listOf("jpg", "jpeg", "png", "gif", "bmp") -> {
-                    "image"
-                }
-                else -> {
-                    "unknown"
+        fun bind(item : VideoItem) {
+            job?.cancel()
+            job = CoroutineScope(Dispatchers.Main).launch {
+                item.isFullScreen.collectLatest {
+                    if (it) {
+                        changeFullScreenButtonDrawable()
+                    } else {
+                        reloadFullScreenBtn()
+                    }
                 }
             }
-        }
 
-        fun bind(item : VideoItem) {
-            Log.e("item",item.id.toString() + " " + item.web)
             binding.video = item
+            mVideo = item
+            binding.imageView.visibility = View.GONE
+            binding.playerView.visibility = View.GONE
+            binding.progressBar.visibility = View.VISIBLE
+            fullScreenBtn = binding.playerView.findViewById(R.id.exo_fullscreen_icon)
+            fullScreenBtn?.imageTintList = ColorStateList.valueOf(Color.WHITE)
+
             binding.txtViews.text = Util.formatNumber(item.views)
             binding.txtLikes.text = Util.formatNumber(item.likes)
             Glide.with(itemView.context)
@@ -145,9 +177,21 @@ class VideoAdapter(
                 itemView.context.startActivity(i)
             }
 
-            if (detectMediaType(item.url) == "image") {
+            fullScreenBtn?.setOnClickListener {
+                if (item.isFullScreen.value) {
+                    item.isFullScreen.tryEmit(false)
+                    fullScreen.invoke(false)
+                    reloadFullScreenBtn()
+                } else {
+                    fullScreen.invoke(true)
+                    item.isFullScreen.tryEmit(true)
+                    changeFullScreenButtonDrawable()
+                }
+            }
+
+            if (item.type == "image") {
                 binding.imageView.visibility = View.VISIBLE
-                binding.videoView.visibility = View.GONE
+                binding.playerView.visibility = View.GONE
 
                 Glide.with(itemView.context)
                     .load(item.url)
@@ -174,37 +218,95 @@ class VideoAdapter(
                         }
                     }).into(binding.imageView)
 
-            } else if (detectMediaType(item.url) == "video") {
+            } else if (item.type == "video") {
                 binding.imageView.visibility = View.GONE
-                binding.videoView.visibility = View.VISIBLE
-
-                binding.videoView.setVideoPath(item.url)
-                binding.videoView.setOnPreparedListener { mediaPlayer ->
-                    binding.progressBar.visibility = View.GONE
-                    mediaPlayer.start()
-
-                    val videoRatio = mediaPlayer.videoWidth / mediaPlayer.videoHeight.toFloat()
-                    val screenRatio = binding.videoView.width / binding.videoView.height.toFloat()
-                    val scaleX = videoRatio / screenRatio
-                    if (scaleX >= 50f) {
-                        binding.videoView.scaleX = scaleX
-                    } else {
-                        binding.videoView.scaleY = 1f / scaleX
-                    }
-                }
-
-                binding.videoView.setOnTouchListener { view, motionEvent ->
-                    if (binding.videoView.isPlaying) {
-                        binding.videoView.pause()
-                        false
-                    } else {
-                        binding.videoView.start()
-                        false
-                    }
-                }
-
+                binding.playerView.visibility = View.VISIBLE
             }
         }
-    }
 
+        fun onDetach(){
+            if (mVideo?.type == "video"){
+                binding.relativeBottom.visibility = View.GONE
+                binding.imgProfile.visibility = View.GONE
+                exoPlayer?.let {
+                    videoPreparedListener.onMediaPlayerReleased(
+                        ExoPlayerItem(
+                            it,
+                            absoluteAdapterPosition
+                        )
+                    )
+                }
+
+                exoPlayer?.stop()
+                exoPlayer?.release()
+                exoPlayer = null
+            }
+        }
+
+        fun onAttach(){
+            if (mVideo?.isFullScreen?.value == true) {
+                changeFullScreenButtonDrawable()
+            } else {
+                reloadFullScreenBtn()
+            }
+            mVideo?.takeIf { it.type == "video" }?.let {
+                binding.relativeBottom.visibility = if (it.isFullScreen.value) View.GONE else View.VISIBLE
+                binding.imgProfile.visibility = if (it.isFullScreen.value) View.GONE else View.VISIBLE
+                exoPlayer = ExoPlayer.Builder(binding.root.context).build()
+                exoPlayer?.let {
+                    videoPreparedListener.onMediaPlayerPrepared(
+                        ExoPlayerItem(
+                            it,
+                            absoluteAdapterPosition
+                        )
+                    )
+                }
+
+                exoPlayer?.addListener(object : Player.Listener {
+                    override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
+                        if (playbackState == Player.STATE_BUFFERING) {
+                            binding.progressBar.visibility = View.VISIBLE
+                        } else if (playbackState == Player.STATE_READY) {
+                            binding.progressBar.visibility = View.GONE
+                        }
+                    }
+                })
+                binding.playerView.player = exoPlayer
+                exoPlayer?.repeatMode = Player.REPEAT_MODE_ONE
+
+                exoPlayer?.setMediaItem(MediaItem.fromUri(it.url))
+                exoPlayer?.prepare()
+                exoPlayer?.seekTo(0, 0)
+                exoPlayer?.playWhenReady = true
+            }
+        }
+
+        private fun reloadFullScreenBtn() {
+            fullScreenBtn?.setImageDrawable(
+                ContextCompat.getDrawable(
+                    binding.root.context,
+                    R.drawable.baseline_fullscreen_24
+                )
+            )
+            binding.imgProfile.visibility = View.VISIBLE
+            binding.relativeBottom.visibility = View.VISIBLE
+        }
+
+        private fun changeFullScreenButtonDrawable(){
+            fullScreenBtn?.setImageDrawable(
+                ContextCompat.getDrawable(
+                    binding.root.context,
+                    R.drawable.baseline_fullscreen_exit_24
+                )
+            )
+            binding.relativeBottom.visibility = View.GONE
+            binding.imgProfile.visibility = View.GONE
+        }
+
+    }
+}
+
+interface OnMediaPlayerPreparedListener {
+    fun onMediaPlayerPrepared(exoPlayerItem: ExoPlayerItem)
+    fun onMediaPlayerReleased(exoPlayerItem: ExoPlayerItem)
 }
