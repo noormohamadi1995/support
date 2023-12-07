@@ -59,7 +59,8 @@ class StoryView(
                 sliderView.durationInSeconds,
                 object : ProgressTimeWatcher {
                     override fun onEnd(indexFinished: Int) {
-                        currentlyShownIndex = indexFinished + 1
+                        Log.e("index", indexFinished.toString())
+                        //currentlyShownIndex = indexFinished + 1
                         next()
                     }
                 },
@@ -142,20 +143,21 @@ class StoryView(
         passedInContainerView.addView(this)
     }
 
-    private fun showLikeCount(){
+    private fun showLikeCount() {
         val item = libSliderViewList[currentlyShownIndex].storyDataModel
         view.findViewById<TextView>(R.id.txtLikes).text = Util.formatNumber(item.likes)
+        val btnLike = view.findViewById<ImageView>(R.id.btnLike)
 
-        if (item.isLike?.not() == true){
-            Glide.with(view.context)
-                .load(ContextCompat.getDrawable(view.context,R.drawable.ic_baseline_favorite_border_24))
-                .into(view.findViewById(R.id.btnLike))
-        }else{
-            Glide.with(view.context)
-                .load(ContextCompat.getDrawable(view.context,R.drawable.ic_baseline_favorite_24))
-                .into(view.findViewById(R.id.btnLike))
-        }
+        view.findViewById<ImageView>(R.id.btnLike).setImageDrawable(
+            ContextCompat.getDrawable(
+                btnLike.context,
+                if (item.isLike?.not() == true) {
+                    R.drawable.ic_baseline_favorite_border_24
+                } else R.drawable.ic_baseline_favorite_24
+            )
+        )
     }
+
     private fun changeLikeCount(id: Int) {
         val item = libSliderViewList[currentlyShownIndex].storyDataModel
         if (item.id == id) {
@@ -170,14 +172,15 @@ class StoryView(
                 item.likes = item.likes + 1
             }
 
-            Glide.with(view.context).load(
-                if (item.isLike?.not() == true) R.drawable.ic_baseline_favorite_24
-                else R.drawable.ic_baseline_favorite_border_24)
-                .into(btnLike)
+            btnLike.setImageDrawable(
+                ContextCompat.getDrawable(
+                    btnLike.context,
+                    if (item.isLike?.not() == true) R.drawable.ic_baseline_favorite_24
+                    else R.drawable.ic_baseline_favorite_border_24
+                )
+            )
             txtLike.text = Util.formatNumber((item.likes))
             item.isLike = item.isLike?.not()
-
-            Log.e("currentItem", item.toString())
         }
 
     }
@@ -190,7 +193,7 @@ class StoryView(
             item.isView = true
             txtCount.text = Util.formatNumber(item.viewsCount)
             storyCallback.setReaction(item.id, "view", this)
-        }else{
+        } else {
             txtCount.text = Util.formatNumber(item.viewsCount)
         }
     }
@@ -200,10 +203,6 @@ class StoryView(
         val item = libSliderViewList[currentlyShownIndex].storyDataModel
         showLikeCount()
         changeViewCount()
-
-        Log.e("story id like view", item.id.toString() + " "
-                + item.likes + " " + item.viewsCount + " " + item.isLike + " " + item.isView
-        )
 
         if (item.web.isNotEmpty()) {
             view.findViewById<Button>(R.id.btnShowMore).visibility = View.VISIBLE
@@ -281,9 +280,7 @@ class StoryView(
         }
 
         view.findViewById<ImageView>(R.id.btnLike).setOnClickListener {
-            Log.e("id", item.id.toString())
             changeLikeCount(item.id)
-            //storyCallback.setReaction(item.id, "like", this)
         }
 
         view.findViewById<Button>(R.id.btnShowMore).setOnClickListener {
@@ -330,6 +327,7 @@ class StoryView(
                 }
             }
         } catch (e: IndexOutOfBoundsException) {
+            e.printStackTrace()
             finish()
         }
     }
